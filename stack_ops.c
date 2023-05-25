@@ -10,7 +10,7 @@ void pint(stack_t **stack, unsigned int line_number)
 	stack_t *head = *stack;
 	char msg[1024];
 
-	if (stack == NULL)
+	if (*stack == NULL)
 	{
 		sprintf(msg, "L%u: can't pint, stack empty", line_number);
 		error(msg, *stack, EXIT_FAILURE);
