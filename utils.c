@@ -8,10 +8,26 @@
 
 void split_lines(char *buffer, char **lines)
 {
-	char *token;
-	int index = 0;
+	char *token, prev = buffer[0], new_buffer[FILE_SIZE];
+	int index = 0, new_index = 0;
+
+	while (buffer[index])
+	{
+		if (prev == '\n' && buffer[index] == '\n')
+		{
+			new_buffer[new_index] = ' ';
+			new_index++;
+		}
+		new_buffer[new_index] = buffer[index];
+		new_index++;
+		index++;
+	}
+	new_buffer[new_index] = '\0';
+	strcpy(buffer, new_buffer);
+	printf("--%s--\n", buffer);
 
 	token = strtok(buffer, "\n");
+	index = 0;
 	while (token != NULL && index < (FILE_SIZE - 1))
 	{
 		lines[index] = token;
