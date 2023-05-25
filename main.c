@@ -113,10 +113,7 @@ int main(int argc, char **argv __attribute__((unused)))
 	if (nread > 0)
 		buffer[nread] = '\0';
 	else
-	{
-		sprintf(msg, "Error: Can't open file %s", argv[1]);
-		error(msg, stack, EXIT_FAILURE);
-	}
+		exit(0);
 	split_lines(buffer, lines);
 	while (lines[line_index])
 	{
