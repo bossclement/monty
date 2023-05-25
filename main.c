@@ -119,8 +119,8 @@ int main(int argc, char **argv __attribute__((unused)))
 	{
 		oper_args = split_oper(lines[line_index], oper);
 		oper_func = find_oper(oper[0]);
-		if ((two_args(oper[0]) && oper_args < 2) ||
-		(is_num(oper[1]) == 0 && two_args(oper[0])))
+		if ((strcmp(oper[0], "push") == 0 && oper_args < 2) ||
+		(is_num(oper[1]) == 0 && strcmp(oper[0], "push") == 0) || oper_args > 2)
 		{
 			sprintf(msg, "L%u: usage: push integer", line_index + 1);
 			error(msg, stack, EXIT_FAILURE);
