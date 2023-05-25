@@ -93,17 +93,21 @@ int main(int argc, char **argv __attribute__((unused)))
 {
 	char buffer[FILE_SIZE], *lines[FILE_SIZE], *oper[FILE_SIZE], msg[FILE_SIZE];
 	size_t nread;
-	int line_index = 0, oper_args;
+	unsigned int line_index = 0, oper_args;
 	void (*oper_func)(stack_t **stack, unsigned int line_number);
 	stack_t *stack = NULL;
 	FILE *file;
 
 	if (argc != 2)
-		error("USAGE: monty file", stack, EXIT_FAILURE);
+	{
+		sprintf(msg, "USAGE: %s file", argv[0]);
+		error(msg, stack, EXIT_FAILURE);
+	}
 
 	file = fopen(argv[1], "r");
 	if (file == NULL)
 	{
+		if (access(argv[1], F_OK) )
 		sprintf(msg, "Error: Can't open file %s", argv[1]);
 		error(msg, stack, EXIT_FAILURE);
 	}
@@ -121,16 +125,11 @@ int main(int argc, char **argv __attribute__((unused)))
 	while (lines[line_index])
 	{
 		oper_args = split_oper(lines[line_index], oper);
-		if (oper_args > 2 || oper_args == 0)
-		{
-			line_index++;
-			continue;
-		}
 		oper_func = find_oper(oper[0]);
 		if ((two_args(oper[0]) && oper_args < 2) ||
 		(is_num(oper[1]) == 0 && two_args(oper[0])))
 		{
-			sprintf(msg, "L%d: usage: push integer", line_index + 1);
+			sprintf(msg, "L%u: usage: push integer", line_index + 1);
 			error(msg, stack, EXIT_FAILURE);
 		}
 		if (oper_func)
@@ -142,7 +141,7 @@ int main(int argc, char **argv __attribute__((unused)))
 		}
 		else
 		{
-			sprintf(msg, "L%d: unknown instruction %s", line_index + 1, oper[0]);
+			sprintf(msg, "L%u: unknown instruction %s", line_index + 1, oper[0]);
 			error(msg, stack, EXIT_FAILURE);
 		}
 		line_index++;
