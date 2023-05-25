@@ -63,6 +63,9 @@ void (*find_oper(char *oper))(stack_t **stack, unsigned int line_number)
 		{NULL, NULL}
 	};
 
+	if (oper == NULL)
+		return (NULL);
+
 	while (functions[index].opcode && strcmp(functions[index].opcode, oper) != 0)
 		index++;
 	return (functions[index].f);
@@ -119,6 +122,11 @@ int main(int argc, char **argv __attribute__((unused)))
 	{
 		oper_args = split_oper(lines[line_index], oper);
 		oper_func = find_oper(oper[0]);
+		if (oper_func == NULL)
+		{
+			line_index++;
+			continue;
+		}
 		if ((strcmp(oper[0], "push") == 0 && oper_args < 2) ||
 		(is_num(oper[1]) == 0 && strcmp(oper[0], "push") == 0))
 		{
