@@ -2,14 +2,15 @@
 
 /**
  * split_lines - prints by new line.
- * @buffer: content of a file
+ * @buffer: content of a file.
+ * @lines: array of pointers to stores the lines.
  */
 
 void split_lines(char *buffer, char **lines)
 {
 	char *token;
 	int index = 0;
-	
+
 	token = strtok(buffer, "\n");
 	while (token != NULL && index < (FILE_SIZE - 1))
 	{
@@ -31,7 +32,7 @@ int split_oper(char *line, char **oper)
 {
 	char *token;
 	int index = 0;
-	
+
 	token = strtok(line, " ");
 	while (token != NULL && index < (FILE_SIZE - 1))
 	{
@@ -41,4 +42,38 @@ int split_oper(char *line, char **oper)
 	}
 	oper[index] = NULL;
 	return (index);
+}
+
+/**
+ * pall - prints the stack nodes.
+ * @stack: head pointer of the stack.
+ * @line_number: not applyed here.
+ */
+
+void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
+{
+	stack_t *head = *stack;
+
+	while (head)
+	{
+		printf("%d\n", head->n);
+		head = head->next;
+	}
+}
+
+/**
+ * free_struct - frees the stack/queue
+ * @head: head pointer of the stack/queue.
+ */
+
+void free_struct(stack_t *head)
+{
+	stack_t *next;
+
+	while (head)
+	{
+		next = head->next;
+		free(head);
+		head = next;
+	}
 }
