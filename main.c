@@ -121,6 +121,11 @@ int main(int argc, char **argv __attribute__((unused)))
 	while (lines[line_index])
 	{
 		oper_args = split_oper(lines[line_index], oper);
+		if (oper_args > 2 || oper_args == 0)
+		{
+			line_index++;
+			continue;
+		}
 		oper_func = find_oper(oper[0]);
 		if ((two_args(oper[0]) && oper_args < 2) ||
 		(is_num(oper[1]) == 0 && two_args(oper[0])))
