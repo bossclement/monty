@@ -46,7 +46,7 @@ void pop(stack_t **stack, unsigned int line_number)
 		free(*stack);
 	} else
 	{
-		sprintf(msg, "L%u: can't pop an empty stack", line_number);
+		sprintf(msg, "L%u: can't pop an empty stack", line_number + 1);
 		error(msg, *stack, EXIT_FAILURE);
 	}
 	*stack = next;
