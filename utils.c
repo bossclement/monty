@@ -24,7 +24,6 @@ void split_lines(char *buffer, char **lines)
 	}
 	new_buffer[new_index] = '\0';
 	strcpy(buffer, new_buffer);
-	printf("--%s--\n", buffer);
 
 	token = strtok(buffer, "\n");
 	index = 0;

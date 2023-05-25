@@ -46,6 +46,5 @@ int split_oper(char *line, char **oper);
 void pall(stack_t **stack, unsigned int line_number __attribute__((unused)));
 void free_struct(stack_t *head);
 int is_num(char *num);
-int two_args(char *oper);
 
 #endif
