@@ -35,14 +35,19 @@ void push(stack_t **stack, unsigned int line_number)
 * @line_number: number of the new node
 */
 
-void pop(stack_t **stack, unsigned int line_number __attribute__((unused)))
+void pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *next = NULL;
+	char msg[1024];
 
 	if (*stack)
 	{
 		next = (*stack)->next;
 		free(*stack);
+	} else
+	{
+		sprintf(msg, "L%u: can't pop an empty stack", line_number);
+		error(msg, *stack, EXIT_FAILURE);
 	}
 	*stack = next;
 }
@@ -130,7 +135,7 @@ int main(int argc, char **argv __attribute__((unused)))
 			if (oper_args > 1)
 				(*oper_func)(&stack, atoi(oper[1]));
 			else if (oper_args == 1)
-				(*oper_func)(&stack, 0);
+				(*oper_func)(&stack, line_index);
 		}
 		else
 		{
