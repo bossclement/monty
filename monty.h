@@ -41,5 +41,6 @@ typedef struct instruction_s
 
 
 void split_lines(char *buffer, char **lines);
+int split_oper(char *line, char **oper);
 
 #endif

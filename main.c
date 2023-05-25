@@ -17,9 +17,10 @@ void pop(stack_t **stack, unsigned int line_number);
  
  	if (new == NULL)
  		error("Error: malloc failed", EXIT_FAILURE);
- 		
+ 
  	new->n = line_number;
- 	new->prev = (*stack)->prev;
+ 	if (*stack)
+ 		new->prev = (*stack)->prev;
  	new->next = *stack;
  	
  	if (*stack)
@@ -55,14 +56,13 @@ void pop(stack_t **stack, unsigned int line_number __attribute__((unused)))
 void (*find_oper(char *oper))(stack_t **stack, unsigned int line_number)
 {
 	int index = 0;
-
 	instruction_t functions[] = {
 		{"push", push},
 		{"pop", pop},
 		{NULL, NULL}
 	};
-	
-	while (functions[index].opcode && !strcmp(functions[index].opcode, oper))
+
+	while (functions[index].opcode && strcmp(functions[index].opcode, oper) != 0)
 		index++;
 	return (functions[index].f);
 }
@@ -89,10 +89,13 @@ void error(char *msg, int code)
 
 int main(int argc, char **argv __attribute__((unused)))
 {
-	char buffer[FILE_SIZE], *lines[FILE_SIZE];
+	char buffer[FILE_SIZE], *lines[FILE_SIZE], *oper[FILE_SIZE];
 	size_t nread;
+	int line_index = 0;
+	void (*oper_func)(stack_t **stack, unsigned int line_number);
+	stack_t *stack = NULL;
 	FILE *file;
-
+	
 	if (argc != 2)
 		error("USAGE: monty file", EXIT_FAILURE);
 
@@ -111,7 +114,17 @@ int main(int argc, char **argv __attribute__((unused)))
 		sprintf(buffer, "Error: Can't open file %s", argv[1]);
 		error(buffer, EXIT_FAILURE);
 	}
-	
 	split_lines(buffer, lines);
+	while (lines[line_index])
+	{
+		if (split_oper(lines[line_index], oper) != 2)
+			continue;
+		oper_func = find_oper(oper[0]);
+		if (oper_func)
+		{
+			(*oper_func)(&stack, atoi(oper[1]));
+		}
+		line_index++;
+	}
 	return (0);
 }
