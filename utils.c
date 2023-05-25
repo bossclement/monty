@@ -87,13 +87,13 @@ void free_struct(stack_t *head)
 int is_num(char *num)
 {
 	int index = 0;
-	
+
 	while (num[index])
 	{
 		if (num[index] != '-' && (num[index] < '0' || num[index] > '9'))
 			return (0);
 		index++;
 	}
-	
+
 	return (1);
 }

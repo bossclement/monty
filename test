@@ -1,6 +1,5 @@
    push     1
-   pushs     -a2
-    push 3    
-                 pop              
+   push     2
+    push 3                
                  
     pall
