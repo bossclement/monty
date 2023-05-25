@@ -1,9 +1,4 @@
 #include "monty.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include <string.h>
-#include <unistd.h>
 
 void error(char *msg, int code);
 void push(stack_t **stack, unsigned int line_number);
@@ -94,14 +89,15 @@ void error(char *msg, int code)
 
 int main(int argc, char **argv __attribute__((unused)))
 {
-	char buffer[FILE_SIZE], char **lines;
+	char buffer[FILE_SIZE], **lines[FILE_SIZE];
 	size_t nread;
 	FILE *file;
 
 	if (argc != 2)
 		error("USAGE: monty file", EXIT_FAILURE);
 
-	if (access(argv[1], R_OK) != 0)
+	file = fopen(argv[1], "r");
+	if (file == NULL)
 	{
 		sprintf(buffer, "Error: Can't open file %s", argv[1]);
 		error(buffer, EXIT_FAILURE);
@@ -115,6 +111,5 @@ int main(int argc, char **argv __attribute__((unused)))
 		sprintf(buffer, "Error: Can't open file %s", argv[1]);
 		error(buffer, EXIT_FAILURE);
 	}
-	
 	return (0);
 }
