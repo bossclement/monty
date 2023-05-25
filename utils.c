@@ -77,3 +77,23 @@ void free_struct(stack_t *head)
 		head = next;
 	}
 }
+
+/**
+ * is_num - checks if a string is a number
+ * @num: the number to check.
+ * Return: a number.
+ */
+
+int is_num(char *num)
+{
+	int index = 0;
+	
+	while (num[index])
+	{
+		if (num[index] != '-' && (num[index] < '0' || num[index] > '9'))
+			return (0);
+		index++;
+	}
+	
+	return (1);
+}

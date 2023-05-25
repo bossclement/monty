@@ -91,7 +91,7 @@ void error(char *msg, stack_t *stack, int code)
 
 int main(int argc, char **argv __attribute__((unused)))
 {
-	char buffer[FILE_SIZE], *lines[FILE_SIZE], *oper[FILE_SIZE];
+	char buffer[FILE_SIZE], *lines[FILE_SIZE], *oper[FILE_SIZE], msg[FILE_SIZE];
 	size_t nread;
 	int line_index = 0, oper_args;
 	void (*oper_func)(stack_t **stack, unsigned int line_number);
@@ -104,8 +104,8 @@ int main(int argc, char **argv __attribute__((unused)))
 	file = fopen(argv[1], "r");
 	if (file == NULL)
 	{
-		sprintf(buffer, "Error: Can't open file %s", argv[1]);
-		error(buffer, stack, EXIT_FAILURE);
+		sprintf(msg, "Error: Can't open file %s", argv[1]);
+		error(msg, stack, EXIT_FAILURE);
 	}
 
 	nread = fread(buffer, sizeof(char), FILE_SIZE - 1, file);
@@ -114,8 +114,8 @@ int main(int argc, char **argv __attribute__((unused)))
 		buffer[nread] = '\0';
 	else
 	{
-		sprintf(buffer, "Error: Can't open file %s", argv[1]);
-		error(buffer, stack, EXIT_FAILURE);
+		sprintf(msg, "Error: Can't open file %s", argv[1]);
+		error(msg, stack, EXIT_FAILURE);
 	}
 	split_lines(buffer, lines);
 	while (lines[line_index])
@@ -136,8 +136,8 @@ int main(int argc, char **argv __attribute__((unused)))
 		}
 		else
 		{
-			sprintf(buffer, "L%d: unknown instruction %s", line_index + 1, oper[0]);
-			error(buffer, stack, EXIT_FAILURE);
+			sprintf(msg, "L%d: unknown instruction %s", line_index + 1, oper[0]);
+			error(msg, stack, EXIT_FAILURE);
 		}
 		line_index++;
 	}
