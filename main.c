@@ -99,10 +99,7 @@ int main(int argc, char **argv __attribute__((unused)))
 	FILE *file;
 
 	if (argc != 2)
-	{
-		sprintf(msg, "USAGE: %s file", argv[0]);
-		error(msg, stack, EXIT_FAILURE);
-	}
+		error("USAGE: monty file", stack, EXIT_FAILURE);
 
 	file = fopen(argv[1], "r");
 	if (file == NULL)
