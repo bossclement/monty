@@ -7,5 +7,17 @@
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
+	(void)line_number;
+
+	stack_t *next = NULL;
+	stack_t *temp;
+	if (stack == NULL)
+		exit(EXIT_FAILURE);
+	temp = *stack;
+	while (temp != NULL)
+	{
+		print("%d\n", temp->n);
+		temp = temp->next;
+	}
 }
 
