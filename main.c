@@ -66,6 +66,7 @@ void (*find_oper(char *oper))(stack_t **stack, unsigned int line_number)
 		{"pop", pop},
 		{"pall", pall},
 		{"pint", pint},
+		{"nop", nop},
 		{NULL, NULL}
 	};
 
@@ -130,11 +131,6 @@ int main(int argc, char **argv __attribute__((unused)))
 		{
 			sprintf(msg, "L%u: usage: push integer", line_index + 1);
 			error(msg, stack, EXIT_FAILURE);
-		}
-		else if (strcmp(oper[0], "nop" == 0))
-		{
-			line_index++;
-			continue;
 		}
 		if (oper_func)
 		{
