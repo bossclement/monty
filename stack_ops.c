@@ -11,8 +11,10 @@ void pint(stack_t **stack, unsigned int line_number)
 
 	stack_t *next = NULL;
 	stack_t *temp;
+
 	if (stack == NULL)
-		exit(EXIT_FAILURE);
+		error("L<line_number>: can't pint, stack empty", EXIT_FAILURE)
+
 	temp = *stack;
 	while (temp != NULL)
 	{
