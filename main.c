@@ -113,17 +113,21 @@ int main(int argc, char **argv __attribute__((unused)))
 	if (nread > 0)
 		buffer[nread] = '\0';
 	else
-		exit(0);
+	{
+		sprintf(msg, "Error: Can't open file %s", argv[1]);
+		error(msg, stack, EXIT_FAILURE);
+	}
 	split_lines(buffer, lines);
 	while (lines[line_index])
 	{
 		oper_args = split_oper(lines[line_index], oper);
-		if (oper_args > 2 || oper_args == 0)
-		{
-			line_index++;
-			continue;
-		}
 		oper_func = find_oper(oper[0]);
+		if ((two_args(oper[0]) && oper_args < 2) ||
+		(is_num(oper[1]) == 0 && two_args(oper[0])))
+		{
+			sprintf(msg, "L%d: usage: push integer", line_index + 1);
+			error(msg, stack, EXIT_FAILURE);
+		}
 		if (oper_func)
 		{
 			if (oper_args > 1)

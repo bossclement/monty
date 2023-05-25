@@ -88,6 +88,9 @@ int is_num(char *num)
 {
 	int index = 0;
 
+	if (num == NULL)
+		return (0);
+
 	while (num[index])
 	{
 		if (num[index] != '-' && (num[index] < '0' || num[index] > '9'))
