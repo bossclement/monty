@@ -1,6 +1,6 @@
 #include "monty.h"
 
-void error(char *msg, int code);
+void error(char *msg, stack_t *stack, int code);
 void push(stack_t **stack, unsigned int line_number);
 void (*find_oper(char *oper))(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
@@ -16,7 +16,7 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new = (stack_t *)malloc(sizeof(stack_t));
 
 	if (new == NULL)
-		error("Error: malloc failed", EXIT_FAILURE);
+		error("Error: malloc failed", NULL, EXIT_FAILURE);
 
 	new->n = line_number;
 	if (*stack)
@@ -74,9 +74,10 @@ void (*find_oper(char *oper))(stack_t **stack, unsigned int line_number)
  * @code: exit code
  */
 
-void error(char *msg, int code)
+void error(char *msg, stack_t *stack, int code)
 {
 	fprintf(stderr, "%s\n", msg);
+	free_struct(stack);
 	exit(code);
 }
 
@@ -97,13 +98,13 @@ int main(int argc, char **argv __attribute__((unused)))
 	FILE *file;
 
 	if (argc != 2)
-		error("USAGE: monty file", EXIT_FAILURE);
+		error("USAGE: monty file", stack, EXIT_FAILURE);
 
 	file = fopen(argv[1], "r");
 	if (file == NULL)
 	{
 		sprintf(buffer, "Error: Can't open file %s", argv[1]);
-		error(buffer, EXIT_FAILURE);
+		error(buffer, stack, EXIT_FAILURE);
 	}
 
 	nread = fread(buffer, sizeof(char), FILE_SIZE - 1, file);
@@ -113,7 +114,7 @@ int main(int argc, char **argv __attribute__((unused)))
 	else
 	{
 		sprintf(buffer, "Error: Can't open file %s", argv[1]);
-		error(buffer, EXIT_FAILURE);
+		error(buffer, stack, EXIT_FAILURE);
 	}
 	split_lines(buffer, lines);
 	while (lines[line_index])
@@ -135,7 +136,7 @@ int main(int argc, char **argv __attribute__((unused)))
 		else
 		{
 			sprintf(buffer, "L%d: unknown instruction %s", line_index + 1, oper[0]);
-			error(buffer, EXIT_FAILURE);
+			error(buffer, stack, EXIT_FAILURE);
 		}
 		line_index++;
 	}
