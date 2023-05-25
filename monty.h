@@ -41,5 +41,6 @@ typedef struct instruction_s
 
 
 void split_lines(char *buffer, char **lines);
+void error(char *msg, int code);
 
 #endif
