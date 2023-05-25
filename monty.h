@@ -1,7 +1,7 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#define FILE_SIZE 1024
+#define FILE_SIZE 10000
 
 #include <stdio.h>
 #include <stdlib.h>
