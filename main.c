@@ -89,7 +89,7 @@ void error(char *msg, int code)
 
 int main(int argc, char **argv __attribute__((unused)))
 {
-	char buffer[FILE_SIZE], **lines[FILE_SIZE];
+	char buffer[FILE_SIZE], *lines[FILE_SIZE];
 	size_t nread;
 	FILE *file;
 
@@ -111,5 +111,7 @@ int main(int argc, char **argv __attribute__((unused)))
 		sprintf(buffer, "Error: Can't open file %s", argv[1]);
 		error(buffer, EXIT_FAILURE);
 	}
+	
+	split_lines(buffer, lines);
 	return (0);
 }
