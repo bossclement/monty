@@ -69,9 +69,10 @@ void (*find_oper(char *oper))(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * error - prints error and exit the program
- * @msg: error message to print
- * @code: exit code
+ * error - prints error and exit the program.
+ * @msg: error message to print.
+ * @stack: the pointer to the header of the stack.
+ * @code: exit code.
  */
 
 void error(char *msg, stack_t *stack, int code)
