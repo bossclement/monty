@@ -1,42 +1,6 @@
 #include "monty.h"
 
 /**
- * split_lines - prints by new line.
- * @buffer: content of a file.
- * @lines: array of pointers to stores the lines.
- */
-
-void split_lines(char *buffer, char **lines)
-{
-	char *token, prev = buffer[0], new_buffer[FILE_SIZE];
-	int index = 0, new_index = 0;
-
-	while (buffer[index])
-	{
-		if (prev == '\n' && buffer[index] == '\n')
-		{
-			new_buffer[new_index] = ' ';
-			new_index++;
-		}
-		new_buffer[new_index] = buffer[index];
-		new_index++;
-		index++;
-	}
-	new_buffer[new_index] = '\0';
-	strcpy(buffer, new_buffer);
-
-	token = strtok(buffer, "\n");
-	index = 0;
-	while (token != NULL && index < (FILE_SIZE - 1))
-	{
-		lines[index] = token;
-		index++;
-		token = strtok(NULL, "\n");
-	}
-	lines[index] = NULL;
-}
-
-/**
  * split_oper - removes unneccessary space in the oper.
  * @line: line of text read from monty file.
  * @oper: where to store the oper.
@@ -106,6 +70,14 @@ int is_num(char *num)
 	if (num == NULL)
 		return (0);
 
+	while (num[index])
+	{
+		if (num[index] == '\n')
+			num[index] = '\0';
+		index++;
+	}
+
+	index = 0;
 	while (num[index])
 	{
 		if (num[index] != '-' && (num[index] < '0' || num[index] > '9'))

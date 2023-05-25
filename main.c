@@ -92,8 +92,7 @@ void error(char *msg, stack_t *stack, int code)
 
 int main(int argc, char **argv __attribute__((unused)))
 {
-	char buffer[FILE_SIZE], *lines[FILE_SIZE], *oper[FILE_SIZE], msg[FILE_SIZE];
-	size_t nread;
+	char line[FILE_SIZE], *oper[FILE_SIZE], msg[FILE_SIZE], *ln;
 	unsigned int line_index = 0, oper_args;
 	void (*oper_func)(stack_t **stack, unsigned int line_number);
 	stack_t *stack = NULL;
@@ -109,16 +108,11 @@ int main(int argc, char **argv __attribute__((unused)))
 		error(msg, stack, EXIT_FAILURE);
 	}
 
-	nread = fread(buffer, sizeof(char), FILE_SIZE - 1, file);
-	fclose(file);
-	if (nread > 0)
-		buffer[nread] = '\0';
-	else
-		exit(0);
-	split_lines(buffer, lines);
-	while (lines[line_index])
+
+	while (fgets(line, FILE_SIZE, file) != NULL)
 	{
-		oper_args = split_oper(lines[line_index], oper);
+		ln = strtok(line, "\n");
+		oper_args = split_oper(ln, oper);
 		if (oper_args == 0)
 		{
 			line_index++;
@@ -145,6 +139,7 @@ int main(int argc, char **argv __attribute__((unused)))
 		}
 		line_index++;
 	}
+	fclose(file);
 	free_struct(stack);
 	return (0);
 }
