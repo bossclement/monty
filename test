@@ -1,7 +1,13 @@
 
  push 1
+ pint
  push 2
  push 3
  push 4
+ pop
+ pop
+ pop
+ pop
+ pint
  push 5
 pint

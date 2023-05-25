@@ -11,7 +11,7 @@ void pint(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL)
 	{
-		sprintf(msg, "L%u: can't pint, stack empty", line_number);
+		sprintf(msg, "L%u: can't pint, stack empty", line_number + 1);
 		error(msg, *stack, EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);
