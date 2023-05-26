@@ -105,6 +105,12 @@ void divide(stack_t **stack, unsigned int line_number)
 		sprintf(msg, "L%u: can't div, stack too short", line_number + 1);
 		error(msg, *stack, EXIT_FAILURE);
 	}
+	
+	if (head->n == 0)
+	{
+		sprintf(msg, "L%u: division by zero", line_number + 1);
+		error(msg, *stack, EXIT_FAILURE);
+	}
 
 	res = head->next->n / head->n;
 	head->n = res;
