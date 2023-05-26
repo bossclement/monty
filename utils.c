@@ -87,3 +87,28 @@ int is_num(char *num)
 
 	return (1);
 }
+
+/**
+ * div - divides the second top element of the stack
+ *	by the top element of the stack.
+ * @stack: pointer to a node.
+ * @line_number: int var - line number of node.
+ */
+void divide(stack_t **stack, unsigned int line_number)
+{
+	stack_t *head = *stack, *next;
+	char msg[1024];
+	int res = 0;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		sprintf(msg, "L%u: can't div, stack too short", line_number + 1);
+		error(msg, *stack, EXIT_FAILURE);
+	}
+
+	res = head->next->n / head->n;
+	head->n = res;
+	next = head->next;
+	head->next = head->next->next;
+	free(next);
+}

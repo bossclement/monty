@@ -70,6 +70,7 @@ void (*find_oper(char *oper))(stack_t **stack, unsigned int line_number)
 		{"swap", swap},
 		{"add", add},
 		{"sub", sub},
+		{"div", divide},
 		{NULL, NULL}
 	};
 
