@@ -17,8 +17,9 @@ void mul(stack_t **stack, unsigned int line_number)
 		error(msg, *stack, EXIT_FAILURE);
 	}
 
-	head->n *= head->next->n;
 	next = head->next;
-	head->next = head->next->next;
-	free(next);
+	next->n *= head->n;
+	next->prev = NULL;
+	*stack = next;
+	free(head);
 }
