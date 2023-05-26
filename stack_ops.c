@@ -22,7 +22,7 @@ void pint(stack_t **stack, unsigned int line_number)
  * @stack: pointer to a node
  * @line_number: int var - line number of node
  */
-void nop(stack_t **stack __attribute__((unused)), unsigned int line_number)
+void nop(stack_t **stack __attribute__((unused)), unsigned int line_number __attribute__((unused)))
 {
-	(void)line_number;
+	return;
 }
