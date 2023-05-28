@@ -74,3 +74,23 @@ void pchar(stack_t **stack, unsigned int line_number __attribute__((unused)))
 
 	printf("%c\n", (*stack)->n);
 }
+
+/**
+ * pstr - prints the string starting at the top of the stack.
+ * @stack: pointer to a node.
+ * @line_number: int var - line number of node.
+ */
+void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
+{
+	stack_t *node = *stack;
+
+	while (node)
+	{
+		if (node->n <= 0 || node->n > 127)
+			break;
+		printf("%c", node->n);
+		node = node->next;
+	}
+
+	printf("\n");
+}
