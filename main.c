@@ -126,7 +126,7 @@ int main(int argc, char **argv __attribute__((unused)))
 	{
 		ln = strtok(line, "\n");
 		oper_args = split_oper(ln, oper);
-		if (oper_args == 0)
+		if (oper_args == 0 || oper[0][0] == '#')
 		{
 			line_index++;
 			continue;
