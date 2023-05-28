@@ -13,7 +13,7 @@ void mul(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL || (*stack)->next == NULL)
 	{
-		sprintf(msg, "L%u: can't add, stack too short", line_number + 1);
+		sprintf(msg, "L%u: can't mul, stack too short", line_number + 1);
 		error(msg, *stack, EXIT_FAILURE);
 	}
 
