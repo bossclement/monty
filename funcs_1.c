@@ -66,7 +66,7 @@ void pchar(stack_t **stack, unsigned int line_number __attribute__((unused)))
 		sprintf(msg, "L%u: can't pchar, stack empty", line_number + 1);
 		error(msg, *stack, EXIT_FAILURE);
 	}
-	else if ((*stack)->n > 127)
+	else if ((*stack)->n > 127 || (*stack)->n < 0)
 	{
 		sprintf(msg, "L%u: can't pchar, value out of range", line_number + 1);
 		error(msg, *stack, EXIT_FAILURE);
