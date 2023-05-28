@@ -39,6 +39,10 @@ void mod(stack_t **stack, unsigned int line_number)
 	{
 		sprintf(msg, "L%u: can't mod, stack too short", line_number + 1);
 		error(msg, *stack, EXIT_FAILURE);
+	} else if ((*stack)->n == 0)
+	{
+		sprintf(msg, "L%u: division by zero", line_number + 1);
+		error(msg, *stack, EXIT_FAILURE);
 	}
 
 	next = head->next;
