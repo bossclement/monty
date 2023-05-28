@@ -42,7 +42,7 @@ void mod(stack_t **stack, unsigned int line_number)
 	}
 
 	next = head->next;
-	next->n = next->n % head->n;
+	next->n = head->n % next->n;
 	next->prev = NULL;
 	*stack = next;
 	free(head);
